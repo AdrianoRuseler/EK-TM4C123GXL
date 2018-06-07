@@ -29,6 +29,7 @@
 #include "driverlib/sysctl.h"
 #include "daelttiva.h"
 #include "driverlib/interrupt.h"
+#include "driverlib/pwm.h"
 
 //*****************************************************************************
 //
@@ -47,6 +48,7 @@
 //*****************************************************************************
 int
 
+
 main(void)
 {
     double wt = 0;
@@ -60,10 +62,12 @@ main(void)
        PWMIntEnable(PWM1_BASE, PWM_INT_GEN_2);
        // IntEnable(1);
        PWMGenIntTrigEnable(PWM1_BASE, PWM_INT_GEN_2, PWM_INT_CNT_ZERO);
-       IntMasterEnable();
+       //IntMasterEnable();
+       IntEnable(0);
 
 
-      //IntEnable(15000);
+    //  PWMGenIntRegister(PWM1_BASE, PWM_INT_GEN_2, void (*pfnIntHandler)(void));
+
 
    /* //
     // Enable the GPIO port that is used for the on-board LED.
@@ -113,6 +117,29 @@ main(void)
         }
     }*/
 }
+
+void PWM1_GEN2_IntHandler(void)
+{
+// Clear the PWM0 LOAD interrupt flag.
+PWMGenIntClear(PWM1_BASE, PWM_GEN_2, PWM_INT_CNT_LOAD);
+// If the duty cycle is less or equal to 75% then add 0.1% to the duty
+// cycle. Else, reset the duty cycle to 0.1% cycles. Note that 50 is
+// 0.01% of the period (50000 cycles).
+if((PWMPulseWidthGet(PWM1_BASE, PWM_OUT_5) + 50) <=
+((PWMGenPeriodGet(PWM1_BASE, PWM_GEN_2) * 3) / 4))
+{
+PWMPulseWidthSet(PWM1_BASE, PWM_OUT_5,
+PWMPulseWidthGet(PWM1_BASE, PWM_OUT_5) + 50);
+}
+else
+{
+PWMPulseWidthSet(PWM1_BASE, PWM_OUT_5, 50);
+}
+}
+/*void IntEnable(uint32_t ui32Interrupt)
+{
+
+}*/
 //void IntEnable(uint32_t freq)
 //{
 

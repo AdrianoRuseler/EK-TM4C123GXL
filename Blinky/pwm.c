@@ -1500,6 +1500,8 @@ PWMIntEnable(uint32_t ui32Base, uint32_t ui32GenFault)
     HWREG(ui32Base + PWM_O_INTEN) |= ui32GenFault;
 }
 
+
+
 //*****************************************************************************
 //
 //! Disables generator and fault interrupts for a PWM module.

@@ -10,13 +10,12 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
-"./blinky.obj" \
-"./pwm.obj" \
+"./project0.obj" \
 "./startup_ccs.obj" \
-"../blinky_ccs.cmd" \
+"../project0_ccs.cmd" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
--l"C:/ti/TivaWare_C_Series-2.1.3.156/driverlib/ccs/Debug/driverlib.lib" \
+-l"C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/ccs/Debug/driverlib.lib" \
 
 -include ../makefile.init
 
@@ -123,34 +122,34 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-blinky.out \
+project0_PWM_Timer.out \
 
 EXE_OUTPUTS__QUOTED += \
-"blinky.out" \
+"project0_PWM_Timer.out" \
 
 BIN_OUTPUTS += \
-blinky.bin \
+project0_PWM_Timer.bin \
 
 BIN_OUTPUTS__QUOTED += \
-"blinky.bin" \
+"project0_PWM_Timer.bin" \
 
 
 # All Target
-all: blinky.out
+all: project0_PWM_Timer.out
 
 # Tool invocations
-blinky.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+project0_PWM_Timer.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: ARM Linker'
-	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --advice:power=all --define=ccs="ccs" --define=PART_TM4C123GH6PM --define=TARGET_IS_TM4C123_RB1 -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual -z -m"blinky_ccs.map" --heap_size=0 --stack_size=512 -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/lib" -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="blinky_linkInfo.xml" --rom_model -o "blinky.out" $(ORDERED_OBJS)
+	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --advice:power=all --define=ccs="ccs" --define=PART_TM4C123GH6PM --define=TARGET_IS_TM4C123_RB1 -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual -z -m"project0_ccs.map" --heap_size=0 --stack_size=256 -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/lib" -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="project0_PWM_Timer_linkInfo.xml" --rom_model -o "project0_PWM_Timer.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 	@$(MAKE) --no-print-directory post-build
 
-blinky.bin: $(EXE_OUTPUTS)
+project0_PWM_Timer.bin: $(EXE_OUTPUTS)
 	@echo 'Building files: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo 'Invoking: ARM Hex Utility'
-	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armhex"  -o "blinky.bin" $(EXE_OUTPUTS__QUOTED)
+	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armhex"  -o "project0_PWM_Timer.bin" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo ' '
 	@$(MAKE) --no-print-directory post-build
@@ -158,13 +157,13 @@ blinky.bin: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "blinky.obj" "pwm.obj" "startup_ccs.obj" 
-	-$(RM) "blinky.d" "pwm.d" "startup_ccs.d" 
+	-$(RM) "project0.obj" "startup_ccs.obj" 
+	-$(RM) "project0.d" "startup_ccs.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
 post-build:
-	-"C:/ti/ccsv8/utils/tiobj2bin/tiobj2bin" "blinky.out" "blinky.bin" "C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armofd" "C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armhex" "C:/ti/ccsv8/utils/tiobj2bin/mkhex4bin"
+	-"C:/ti/ccsv8/utils/tiobj2bin/tiobj2bin" "project0_PWM_Timer.out" "project0_PWM_Timer.bin" "C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armofd" "C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armhex" "C:/ti/ccsv8/utils/tiobj2bin/mkhex4bin"
 	-@echo ' '
 
 .PHONY: all clean dependents
